@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>Visioscope acoustique</title>
+  <link rel="icon" href="Visioscope_acoustique.gif" type="image/gif">
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+  <style media="screen">
+  * {
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  html, body {
+    margin: 0;
+    width: 100%;
+    font-family: monospace;
+  }
+  #canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+  #controls {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    bottom: 10%;
+    width: 65%;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(7.7px);
+    -webkit-backdrop-filter: blur(7.7px);
+    color: rgba(127,127,127);
+    font-size: 2em;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  #accueil{
+    user-select: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    color: white;
+    text-align: center;
+    z-index: 5;
+    font-size: 2em;
+  }
+  #learnmore{
+    position: absolute;
+    width: 100%;
+    bottom: 5%;
+    text-align: center;
+    z-index: 10;
+  }
+  h1{
+    font-size: 3em;
+  }
+  #start{
+    position: absolute;
+    width: 100%;
+    bottom: 50%;
+    z-index: 10;
+  }
+  #tapstart {
+    position: relative;
+    width: 1024px;
+    height: 1024px;
+    bottom: -10%;
+    z-index: 5;
+  }
+  select, input {
+    text-align: center;
+    appearance: none;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: rgba(117, 117, 117, 1);
+    border: none;
+    padding: 0 1em 0 0;
+    margin: 0;
+    width: 100%;
+    height: 50px;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+  }
+  .red{
+    color: red;
+  }
+  .hide{
+    display: none;
+  }
+  .size{
+    font-size: 1.2em;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  #mobile {
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    width: 110px;
+    z-index: 1000;
+    background: rgba(255, 0, 0, 0.06);
+    backdrop-filter: blur(9px);
+    -webkit-backdrop-filter: blur(9px);
+    color: rgba(127,127,127);
+    font-size: 1.2em;
+    color: red;
+  }
+  #fetching {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    color: rgba(127,127,127);
+    font-size: 5em;
+    color: white;
+  }
+  </style>
+
+  <div id="mobile">
+    Projet conçu<br>pour mobile!
+  </div>
+
+  <div class="hide" id="fetching">
+    <br><br><br><br><br><br>
+    <div id="receive">Receiving local datas</div><br><br><br><br>
+    <img src="fetching.gif">
+  </div>
+
+  <div id="accueil">
+    <h1>Visioscope<br>acoustique</h1>
+    <h2 id="start" class="red">Please allow geolocation <br> for the app to work</h2>
+    <img id="tapstart" src="accueil.gif">
+    <p id="learnmore">An experiment in surveillance apprehension<br>
+      -learn more on <a href="https://VISIOLOGIE.theodelamare.xyz">Visiologie</a> project website-</p>
+    </div>
+
+    <div id="controls">
+
+      <div class="size" id="salu">Please allow geolocation for the app to work</div>
+      <div class="size" id="salu2"></div>
+      <br>
+
+      <button class="hide" id="on-off">Turn On</button>
+      <div id="led"></div>
+
+      <label for="osc-type">Oscillator Type</label>
+      <select id="osc-type">
+        <option value="sine">Sine</option>
+        <option value="square">Square</option>
+        <option value="sawtooth">Sawtooth</option>
+        <option value="triangle">Triangle</option>
+      </select>
+
+      <!-- <label class="hide" for="frequency">Frequency: <span id="frequencyValue">440</span></label>
+      <input class="hide" id="frequency" type="range" min="110" max="1760" step="1" value="440"> -->
+
+      <label for="seuil">Distance max : <span id="seuilValue">500m</span></label>
+      <input class="slidecontainer" id="seuil" type="range" min="0" max="1000" step="1" value="500">
+
+      <label for="gain">Volume/Gain : <span id="gainValue">50</span></label>
+      <input class="slidecontainer" id="gain" type="range" min="0" max="1" step="0.01" value="0.5">
+
+    </div>
+
+    <canvas id="canvas"></canvas>
+
+    <script src="app.js"></script>
+  </body>
+  </html>
